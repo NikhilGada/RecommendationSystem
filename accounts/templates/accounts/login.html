@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			background-size: cover;
+    		background-position: center;
+    		background-image: url(https://images.unsplash.com/photo-1516594798947-e65505dbb29d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);
+    		background-repeat: no-repeat;
+    		height: 100%;
+		}
+		.user_card {
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: #fff;
+			
+		}
+
+		.login_btn {
+			width: 100%;
+			background: #33ccff !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+		#messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+
+
+					<h3 id="form-title" style="color: black; font-weight: bold;">LOGIN</h3>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form method="POST" action="">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+
+							<input type="text" name="username" placeholder="Username..." class="form-control">
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+
+								<input type="password" name="password" placeholder="Password..." class="form-control" >
+						</div>
+
+							<div class="d-flex justify-content-center mt-3 login_container">
+				 				<input class="btn login_btn" type="submit" value="Login">
+				   			</div>
+					</form>
+
+				</div>
+
+				{% for message in messages %}
+					<p id="messages">{{message}}</p>
+				{% endfor %}			
+		
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links" style="color: white; font-size: 130%;">
+						Don't have an account? <a href="{% url 'register' %}" class="ml-2" style="color: black; font-weight: 1000; font-size: 110%;" >Sign Up</a>
+					</div>
+			
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><br>
+	<br>
+<section class="">
+  <!-- Footer -->
+  <footer class="text-center text-white" style="background-color: #0a4275;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: CTA -->
+     <section class="">
+      	<form method="get" action="/home">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3" style="margin-right:1.8em; margin-left:0.8em">NIKHIL GADA</span>
+          <a href="https://in.linkedin.com/in/nikhilgada"><i class="fab fa-linkedin-in"></i></a>
+          
+        </p>
+        </form>
+      </section>
+      <section class="">
+      	<form method="get" action="/home">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3" style="margin-right:1em">HARSH JAIN</span>
+          <a href="https://in.linkedin.com/public-profile/in/harshjain14?challengeId=AQE8IjtaxcXdywAAAXferrWASk_zAzXxSUjv6HY_vN10OcgtzPN9NVzCPO9r8NhEdaxQBGinSNRS3Ppmg5uWfE1In7YfkqLDvQ&submissionId=bcd1ea4b-9d51-6716-2ab2-b8f78941e311"><i class="fab fa-linkedin-in"></i></a>
+          
+        </p>
+        </form>
+      </section>
+      <section class="">
+      	<form method="get" action="/home">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3" style="margin-right:1em">ANIRUDDHA SAWANT</span>
+          <a href="https://in.linkedin.com/in/aniruddha-sawant-0a79411a8"><i class="fab fa-linkedin-in"></i></a>
+          
+        </p>
+        </form>
+      </section>
+      <!-- Section: CTA -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+     Copyright © 2021 SAKEC
+      <a class="text-white" href="/home">PRODUCT RECOMMENDATION</a>
+    </div>
+
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</section>
+
+	</body>
+</html>

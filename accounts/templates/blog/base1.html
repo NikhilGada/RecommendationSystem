@@ -1,0 +1,196 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/jpg" href="({% static 'assets/images/banner-image-1-1920x500.jpg)"/>
+<!-- font icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <title>Product Recommendation</title>
+    <style>
+      body{
+        background-size: cover;
+        background-position: center;
+        background-image: url(https://images.unsplash.com/photo-1542838132-92c53300491e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1934&q=80);
+         background-image: url(https://images.unsplash.com/photo-1506617564039-2f3b650b7010?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
+        background-repeat: no-repeat;
+        height:50%;
+      }
+      .card{
+      cursor: pointer;
+    }
+    .card-body{
+        background: #74cfbf;
+        height:110px;
+        text-align: center;
+        font-size: 1.5rem;
+        color:white;
+        font-weight: 500;
+    }
+    .checked {
+  color: orange;
+  }
+  .movie_detail{
+    position:relative;
+    width:100%;
+    height:500px;
+  }
+  .movie_coll{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    background-color: black;
+    height: 400px;
+    width: 700px;;
+  }
+  a:hover{
+      text-decoration: none;
+  }
+  .searchForm{
+    position: relative;
+  }
+  .moviePopup{
+    padding:0px;
+    position:absolute;
+    top:00px;
+    right:100px;
+    z-index:3;
+    margin-top:35px;
+    height:auto;
+    width:200px;
+    background-color:rgba(255,255,255,0.8);
+  }
+  .moviePopup li{
+   list-style:none;
+    padding:5px;
+    border-bottom:2px solid black;
+    color:black;
+
+   cursor:pointer;
+  }
+  .moviePopup li:last-child {
+  border:none;
+  }
+  .moviePopup li:hover{
+    padding:2px;
+    color:rgb(143, 132, 131);
+  }
+  </style>
+  </head>
+  <body>
+    
+
+    <div class="container my-3">
+        {% block content%}
+        {% endblock %}
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+
+<script>
+
+// Search bar functionality
+
+function ListElementFormat(data){
+  return `<li  class="listmovie">${data}</li>`;
+}
+
+function SearchAction(){
+  var x = document.getElementById("Search").value;
+  var moviepop=document.getElementsByClassName('moviePopup')[0];
+  console.log(x);
+  if(x !==""){
+  moviepop.style.display='block';
+  var url=`/search/?q=${x}`;
+  fetch(url)
+  .then(response => response.json())
+  .then(data =>{
+    var listElement='';
+    for(var i=0;i<data['movie'].length;i++){
+    //  listElement+="<li>"+data['movie'][i]+"</li>";
+    var currentItem=ListElementFormat(`${data['movie'][i]}`);
+     listElement+=currentItem;
+    }
+    moviepop.innerHTML=listElement;
+    searchs()
+  });
+  }else{
+    moviepop.style.display='none';
+  }
+ 
+
+}
+
+function searchs(){
+  var m=document.getElementsByClassName('listmovie');
+  for(var i=0;i<m.length;i++){
+   m[i].addEventListener('click',function(){
+     window.location.assign(`/detail?movie=${this.innerHTML}`)
+   })
+  }
+}
+
+
+</script>
+<br>
+<section class="" >
+  <!-- Footer -->
+  <footer class="text-center text-white" style="background-color: #0a4275;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0" >
+      <!-- Section: CTA -->
+     <section class="" >
+        <form method="get" action="/home">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3" style="margin-right:1.8em; margin-left:0.8em">NIKHIL GADA</span>
+          <a href="https://in.linkedin.com/in/nikhilgada"><i class="fab fa-linkedin-in"></i></a>
+          
+        </p>
+        </form>
+      </section>
+      <section class="">
+        <form method="get" action="/home">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3" style="margin-right:1em">HARSH JAIN</span>
+          <a href="https://in.linkedin.com/public-profile/in/harshjain14?challengeId=AQE8IjtaxcXdywAAAXferrWASk_zAzXxSUjv6HY_vN10OcgtzPN9NVzCPO9r8NhEdaxQBGinSNRS3Ppmg5uWfE1In7YfkqLDvQ&submissionId=bcd1ea4b-9d51-6716-2ab2-b8f78941e311"><i class="fab fa-linkedin-in"></i></a>
+          
+        </p>
+        </form>
+      </section>
+      <section class="">
+        <form method="get" action="/home">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3" style="margin-right:1em">ANIRUDDHA SAWANT</span>
+          <a href="https://in.linkedin.com/in/aniruddha-sawant-0a79411a8"><i class="fab fa-linkedin-in"></i></a>
+          
+        </p>
+        </form>
+      </section>
+      <!-- Section: CTA -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2021 Copyright:
+      <a class="text-white" href="/home">PRODUCT RECOMMENDATION</a>
+    </div>
+
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</section>
+
+
+</html>

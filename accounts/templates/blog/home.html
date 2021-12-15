@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div >
+    <div class="row"  >
+        {% for movie in moviess%}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="card my-2 " data-toggle="tooltip" title="{{movie}}" >
+                        <a href="/detail?movie={{movie}}" class='movie_a'>
+                            <div class="card-header bg-success" ></div>
+                            <div class="card-body" style="background-image: linear-gradient(to bottom right,#F1B24A, #9C27B0);
+    color: #ffffff;  position: center; text-align: center; font-family: 'Roboto', sans-serif; font-size: 2em;">{{movie}}</div>
+                            <div class="card-footer bg-success" style=""></div>
+                        </a>
+                    </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+
+<!--
+<div  class="w-75 m-auto" >
+    <div class="row" >
+        {% for movie in moviess%}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-12" >
+                    <div class="card my-2 " data-toggle="tooltip" title="{{movie}}" >
+                        <a href="/detail?movie={{movie}}" class='movie_a'>
+                            <div class="card-header bg-primary "></div>
+                            <div class="card-body">{{movie}}</div>
+                            <div class="card-footer bg-success"></div>
+                        </a>
+                    </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+-->
+
+{% endblock %}
+

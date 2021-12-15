@@ -1,0 +1,72 @@
+{% extends 'blog/base1.html' %}
+
+{% block content %}
+
+{% if not message %}
+<style>
+span:active {
+  background-color: yellow;
+}
+</style>
+<div class="movie_detail">
+	<div class=" movie_coll" style="background: rgba(0,0,0,0);" >
+		<h1 class="text-white text-center" style="background: rgba(0,0,0,0.2); font-size: 3em;"> Rating the Product </h1>
+		{% if movie %}
+			<div class="card my-2 " >
+				
+				<div class="card-body" style="background-image: url(https://images.unsplash.com/photo-1506617564039-2f3b650b7010?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80); font-size: 2em;" >{{movie}}
+					
+				</div>
+							</div>
+		{% endif %}
+		<div class="btn_collection text-center">
+			<span class="fa fa-3x fa-star " style="background-color: white;" id='1' onclick="a(this.id)"></span>
+			<span class="fa fa-3x fa-star " style="background-color: white;"  id='2'  onclick="a(this.id)"></span>
+			<span class="fa fa-3x fa-star " style="background-color: white;"  id='3'  onclick="a(this.id)"></span>
+			<span class="fa fa-3x fa-star " style="background-color: white;"  id='4'  onclick="a(this.id)"></span>
+			<span class="fa fa-3x fa-star " style="background-color: white;"  id='5'  onclick="a(this.id)"></span>
+			<br>
+			<input type="submit" class="btn  btn-primary px-5" id='sendbtn' value='Done'>
+		</div>
+	</div>
+</div>
+{% else %}
+    <h1>{{movie}} Not Found.</h1>
+{% endif %}
+<script>
+
+var sbtn=document.getElementById('sendbtn');
+sbtn.addEventListener("click",function(){
+	
+	window.location.assign("/recommendation?movie={{movie}}&ratings="+ratings)
+
+})
+
+// Rating overLook functionality
+function a(ra){
+	var ra1=document.getElementById(`${ra}`);
+	var r=Number(ra);
+	var n=ratings;
+	var rating_insert=document.getElementById('rating_num');
+	if(r==n){
+	if(ra1.classList.contains("checked")){
+		ra1.classList.remove("checked");
+		ratings=ratings-1
+		if(ratings==0){
+			rating_insert.innerHTML=""
+		}else{
+			rating_insert.innerHTML=ratings;
+		
+		}
+	}
+	}else{
+		if(r-1==n){
+		ratings=ratings+1
+		ra1.classList.toggle("checked");
+		rating_insert.innerHTML=ratings;
+	}
+	}
+}
+var ratings=0
+</script>
+{% endblock %}

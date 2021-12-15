@@ -1,0 +1,40 @@
+{% extends 'blog/base1.html' %}
+
+
+
+{% block latest_movie %}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+<div>
+    <h2 style="font-size: 3em; color: white;">Recommended Product for {{m}} are:</h2>
+    <div class="row"  >
+        {% for movie in moviess%}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="card my-2 " data-toggle="tooltip" title="{{movie}}" >
+                        <a href="/detail?movie={{movie}}" class='movie_a'>
+                            <div class="card-header bg-success" ></div>
+                            <div class="card-body" style="background-image: linear-gradient(to bottom right,#F1B24A, #9C27B0);
+    color: #ffffff;  position: center; text-align: center; font-family: 'Roboto', sans-serif; font-size: 2em;">{{movie}}</div>
+                            <div class="card-footer bg-success" style=""></div>
+                        </a>
+                    </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+            
+            <form method="get" action="/home">
+    <button style="box-sizing: 5em;" type="submit" class="btn btn-warning btn-block">BACK TO HOME</button>
+</form>
+</div>
+
+
+
+
+{% endblock %}
+
+
